@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
@@ -29,14 +30,15 @@ public class ServerApiController {
 
         String query = "갈비집";
         String encode = Base64.getEncoder().encodeToString(query.getBytes(StandardCharsets.UTF_8));
+
         URI uri = UriComponentsBuilder
                 .fromUriString("https://openapi.naver.com/v1/search/local.json")
                 .path("/v1/search/local.json")
-                .queryParam("query", "%EC%A3%BC%EC%8B%9D")
+                .queryParam("query", "피트니스")
                 .queryParam("display", 10)
                 .queryParam("start", 1)
                 .queryParam("sort", "random")
-                .encode()
+                .encode(Charset.forName("UTF-8"))
                 .build()
                 .toUri();
 
@@ -53,7 +55,6 @@ public class ServerApiController {
         ResponseEntity<String> result = restTemplate.exchange(req, String.class);
 
         return result.getBody();
-
 
     }
 
