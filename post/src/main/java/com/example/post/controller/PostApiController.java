@@ -14,7 +14,6 @@ public class PostApiController {
 
     @PostMapping("/post")   // http://localhost:8080/api/post
     public void post(@RequestBody Map<String, Object> requestData) {
-
         requestData.forEach((key, value) -> {
             System.out.println("key : " + key);
             System.out.println("value : " + value);
