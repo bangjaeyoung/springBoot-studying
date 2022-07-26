@@ -10,13 +10,11 @@ public class GetController {
     @RequestMapping(method = RequestMethod.GET, path = "/get_method")   //  http://localhost:8080/api/get_method
     public String getRequest() {
         return "Hi getMethod";
-
     }
 
     @GetMapping("/get_parameter")   // http://localhost:8080/api/get_parameter?id=1234&password=abcd
     public String getParamter(@RequestParam String id, @RequestParam(name = "password") String pass) {
         String password = "abcd";
-
         System.out.println("id : " + id);
         System.out.println("pass : " + pass);
 

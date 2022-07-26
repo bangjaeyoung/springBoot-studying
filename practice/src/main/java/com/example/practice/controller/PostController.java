@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class PostController {
 
-
     // @RequestMapping(method = RequestMethod.POST, path = "/postMethod")
     @PostMapping(value = "/post_method")
     public SearchParam postMethod(@RequestBody SearchParam searchParam) {
@@ -25,6 +24,4 @@ public class PostController {
     public void patch() {
 
     }
-
-
 }
