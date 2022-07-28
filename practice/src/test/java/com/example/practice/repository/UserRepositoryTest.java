@@ -4,6 +4,8 @@ import com.example.practice.PracticeApplicationTests;
 import com.example.practice.model.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.Assertions;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -17,11 +19,11 @@ public class UserRepositoryTest extends PracticeApplicationTests {
     @Test
     public void create() {
         User user = new User();
-        user.setAccount("TestUser03");
-        user.setEmail("TestUser03@gmail.com");
-        user.setPhoneNumber("010-3333-3333");
+        user.setAccount("TestUser02");
+        user.setEmail("TestUser02@gmail.com");
+        user.setPhoneNumber("010-1111-1111");
         user.setCreatedAt(LocalDateTime.now());
-        user.setCreatedBy("admin03");
+        user.setCreatedBy("TestUser02");
 
         User newUser = userRepository.save(user);
         System.out.println("newUser : " + newUser);
@@ -38,6 +40,7 @@ public class UserRepositoryTest extends PracticeApplicationTests {
     }
 
     @Test
+    @Transactional
     public void update() {
         Optional<User> user = userRepository.findById(2L);
 
@@ -50,7 +53,18 @@ public class UserRepositoryTest extends PracticeApplicationTests {
         });
     }
 
+    @Test
+    @Transactional
     public void delete() {
+        Optional<User> user = userRepository.findById(9L);
 
+        Assertions.assertTrue(user.isPresent());    // false
+
+        user.ifPresent(selectUser -> {
+            userRepository.delete(selectUser);
+        });
+        Optional<User> deleteUser = userRepository.findById(9L);
+
+        Assertions.assertFalse(deleteUser.isPresent()); // false
     }
 }
