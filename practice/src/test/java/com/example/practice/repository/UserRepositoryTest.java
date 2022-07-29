@@ -1,6 +1,7 @@
 package com.example.practice.repository;
 
 import com.example.practice.PracticeApplicationTests;
+import com.example.practice.model.entity.Item;
 import com.example.practice.model.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,23 +20,28 @@ public class UserRepositoryTest extends PracticeApplicationTests {
     @Test
     public void create() {
         User user = new User();
-        user.setAccount("TestUser02");
-        user.setEmail("TestUser02@gmail.com");
-        user.setPhoneNumber("010-1111-1111");
+        user.setAccount("TestUser03");
+        user.setEmail("TestUser03@gmail.com");
+        user.setPhoneNumber("010-1111-3333");
         user.setCreatedAt(LocalDateTime.now());
-        user.setCreatedBy("TestUser02");
+        user.setCreatedBy("TestUser03");
 
         User newUser = userRepository.save(user);
         System.out.println("newUser : " + newUser);
     }
 
     @Test
+    @Transactional
     public void read() {
-        Optional<User> user = userRepository.findById(5L);
+        Optional<User> user = userRepository.findByAccount("TestUser03");
 
         user.ifPresent(selectUser -> {
-            System.out.println("user : " + selectUser);
-            System.out.println("phoneNumber : " + selectUser.getPhoneNumber());
+
+            selectUser.getOrderDetailList().stream().forEach(detail -> {
+
+                Item item = detail.getItem();
+                System.out.println(item);
+            });
         });
     }
 
