@@ -1,12 +1,12 @@
 # HTTP Method
 
-## GET
+> GET
 
-## PUT
+> PUT
 
-## POST
+> POST
 
-## DELETE
+> DELETE
 
 # Restaurant Project with Using Naver API
 
